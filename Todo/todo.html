@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="todo-list">
+            <input type="text" id="new-task" placeholder="Write here...">
+            <ul id="tasks">
+                <li class="task">
+                    <span class="task-name">Pick up kids from school.</span>
+                    <button class="delete-btn">✕</button>
+                </li>
+                <li class="task completed">
+                    <span class="task-name">Book flight ticket for Dubai and Egypt.</span>
+                    <button class="delete-btn">✕</button>
+                </li>
+                <li class="task">
+                    <span class="task-name">Finish design for new website.</span>
+                    <button class="delete-btn">✕</button>
+                </li>
+                <li class="task">
+                    <span class="task-name">Buy a helmet for cycling.</span>
+                    <button class="delete-btn">✕</button>
+                </li>
+                <li class="task completed">
+                    <span class="task-name">Publish YouTube video today.</span>
+                    <button class="delete-btn">✕</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        // Add event listeners to mark tasks as completed or to delete them
+document.querySelectorAll('.task').forEach(task => {
+    task.addEventListener('click', () => {
+        task.classList.toggle('completed');
+    });
+
+    task.querySelector('.delete-btn').addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevents task from being marked as completed when deleting
+        task.remove();
+    });
+});
+
+// Functionality to add new tasks
+const newTaskInput = document.getElementById('new-task');
+const tasksList = document.getElementById('tasks');
+
+newTaskInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && newTaskInput.value.trim() !== '') {
+        const newTask = document.createElement('li');
+        newTask.classList.add('task');
+        newTask.innerHTML = `<span class="task-name">${newTaskInput.value}</span><button class="delete-btn">✕</button>`;
+        tasksList.appendChild(newTask);
+
+        // Add event listeners for the new task
+        newTask.addEventListener('click', () => {
+            newTask.classList.toggle('completed');
+        });
+
+        newTask.querySelector('.delete-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            newTask.remove();
+        });
+
+        newTaskInput.value = ''; // Clear the input
+    }
+});
+
+    </script>
+</body>
+</html>
